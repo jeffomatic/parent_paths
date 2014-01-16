@@ -6,7 +6,7 @@ describe ParentPaths do
     @this_path = File.expand_path(__FILE__)
   end
 
-  describe '#scan' do
+  describe '::scan' do
 
     it 'should pass path names to the given block' do
       ParentPaths.scan('/foo/bar') do |pathname|
@@ -50,9 +50,9 @@ describe ParentPaths do
 
     end # describe 'when the criteria is met'
 
-  end # describe '#scan'
+  end # describe '::scan'
 
-  describe '#scan_for_owner' do
+  describe '::scan_for_owner' do
 
     describe 'when the starting path is explicitly provided' do
 
@@ -94,9 +94,9 @@ describe ParentPaths do
 
     end # describe 'when the starting path is NOT explicitly provided'
 
-  end # describe '#scan_for_owner'
+  end # describe '::scan_for_owner'
 
-  describe '#caller_path' do
+  describe '::caller_path' do
 
     it 'should return the pathname of the caller of the method that includes it' do
       SpecHelper.path_of_the_method_calling_this.should == Pathname.new(@this_path)
@@ -106,6 +106,6 @@ describe ParentPaths do
       SpecHelper.path_of_this_method_being_called.should == Pathname.new(File.dirname(__FILE__)) + 'spec_helper.rb'
     end
 
-  end # describe '#caller_path'
+  end # describe '::caller_path'
 
 end
