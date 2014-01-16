@@ -6,7 +6,7 @@ require 'parent_paths'
 module SpecHelper
 
   def self.path_of_the_method_calling_this
-    ParentPaths.caller_path
+    ParentPaths.send :caller_path
   end
 
   def self.path_of_this_method_being_called

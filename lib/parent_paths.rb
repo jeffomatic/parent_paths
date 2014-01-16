@@ -33,6 +33,8 @@ module ParentPaths
     scan(start) { |pathname| File.exist?(pathname + filename) }
   end
 
+  private
+
   # Returns the path of the file that calls the method that calls caller_path.
   # For example if, foo.rb#foo calls caller_path, calling foo.rb#foo will return
   # the current file.
