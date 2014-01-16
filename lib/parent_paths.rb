@@ -8,17 +8,16 @@ module ParentPaths
   #
   # If a starting path is not provided, it is assumed to be the path of the
   # file that calls this method.
-  def self.scan(start = nil, &criteria)
+  def self.find(start = nil, &criteria)
     start ||= caller_path
-    start = Pathname.new(start)
     if criteria.call(start)
       return start
     else
-      parent = start.parent
+      parent = Pathname.new(start).parent.to_s
       if start == parent
         nil
       else
-        scan parent, &criteria
+        find parent, &criteria
       end
     end
   end
@@ -28,9 +27,9 @@ module ParentPaths
   #
   # If a starting path is not provided, it is assumed to be the path of the
   # file that calls this method.
-  def self.scan_for_owner(filename, start = nil)
+  def self.find_owner(filename, start = nil)
     start ||= caller_path
-    scan(start) { |pathname| File.exist?(pathname + filename) }
+    find(start) { |path| File.exist?(File.join(path, filename)) }
   end
 
   private
@@ -40,7 +39,7 @@ module ParentPaths
   # the current file.
   def self.caller_path
     matches = caller(2).first.match(/(.*):\d+:in `/)
-    Pathname.new(File.expand_path(matches[1]))
+    File.expand_path(matches[1])
   end
 
 end
